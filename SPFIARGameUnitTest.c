@@ -46,16 +46,13 @@ static bool spFiarGameUndoMoveTest() {
 			ASSERT_TRUE(spFiarGameSetMove(res, i) == SP_FIAR_GAME_SUCCESS);
 		}
 	}
-	printf("a\n");
 	repeat = 2;
 	while (repeat-- > 0) {
 		for (int i = 0; i < SP_FIAR_GAME_N_COLUMNS; i++) {
 			ASSERT_TRUE(spFiarGameUndoPrevMove(res) == SP_FIAR_GAME_SUCCESS);
 		}
 	}
-	printf("a2\n");
 	spFiarGamePrintBoard(res);
-	printf("a3\n");
 	spFiarGameDestroy(res);
 	return true;
 }

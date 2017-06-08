@@ -74,6 +74,7 @@ int spArrayListPop(SPArrayList* src)
 		return -1;
 	int val = spArrayListGetFirst(src);
 	spArrayListRemoveFirst(src);
+	
 	return val;
 }
 
@@ -115,7 +116,8 @@ SP_ARRAY_LIST_MESSAGE spArrayListRemoveAt(SPArrayList* src, int index)
 	if(index < 0 || index >= src->actualSize)
 		return SP_ARRAY_LIST_INVALID_ARGUMENT;
 	
-	memcpy(&src->elements[index], &src->elements[index+1], src->actualSize-index);
+	for(int i=index+1; i<src->actualSize;i++)
+		src->elements[i-1] = src->elements[i];
 
 	src->actualSize--;
 	return SP_ARRAY_LIST_SUCCESS;	
@@ -181,4 +183,16 @@ bool spArrayListIsEmpty(SPArrayList* src)
 	if(src == NULL)
 		return false;
 	return src->actualSize == 0;
+}
+
+void spArrayListPrint(SPArrayList* src)
+{
+	if(src == NULL)
+	{
+		printf("src is NULL\n");
+		return;
+	}
+	for(int i=0; i<src->actualSize; i++)
+		printf("%d ",src->elements[i]);
+	printf("\n");
 }
