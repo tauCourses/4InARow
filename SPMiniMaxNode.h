@@ -4,7 +4,7 @@
 #include <limits.h>
 #include "SPFIARGame.h"
 
-#define SCROING_OPTIONS 9
+#define SCROING_OPTIONS 7s
 enum evaluationMode {MAX_EVAL, MIN_EVAL};
 
 /**

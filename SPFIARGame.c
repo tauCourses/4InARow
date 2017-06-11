@@ -112,7 +112,7 @@ SP_FIAR_GAME_MESSAGE spFiarGamePrintBoard(SPFiarGame* src)
 	for(int i=0;i<SP_FIAR_GAME_N_COLUMNS*2 + 3; i++)
 		printf("-");
 	printf("\n  ");
-	for(int j=0;j<SP_FIAR_GAME_N_COLUMNS;j++)
+	for(int j=1;j<=SP_FIAR_GAME_N_COLUMNS;j++)
 		printf("%d ", j);
 	printf(" \n");
 	return SP_FIAR_GAME_SUCCESS;
@@ -129,23 +129,27 @@ char spFiarCheckWinner(SPFiarGame* src)
 {
 	if(src == NULL)
 		return '\0';
-	char val = spFiarCheckPattern(src,0,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS-SP_FIAR_GAME_SPAN,0,1);
-	if(val != SP_FIAR_GAME_EMPTY_ENTRY)
+
+	char val = spFiarCheckPattern(src,0,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS + 1 - SP_FIAR_GAME_SPAN,0,1);
+	if(val != '\0')
 		return val;
-	val = spFiarCheckPattern(src,0,0,SP_FIAR_GAME_N_ROWS-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS,1,0);
-	if(val != SP_FIAR_GAME_EMPTY_ENTRY)
+
+	val = spFiarCheckPattern(src,0,0,SP_FIAR_GAME_N_ROWS + 1-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS,1,0);
+	if(val != '\0')
 		return val;
-	val = spFiarCheckPattern(src,0,0,SP_FIAR_GAME_N_ROWS-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS-SP_FIAR_GAME_SPAN,1,1);
-	if(val != SP_FIAR_GAME_EMPTY_ENTRY)
+
+	val = spFiarCheckPattern(src,0,0,SP_FIAR_GAME_N_ROWS+1-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,1,1);
+	if(val != '\0')
 		return val;
-	val = spFiarCheckPattern(src,SP_FIAR_GAME_SPAN,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS-SP_FIAR_GAME_SPAN,-1,1);
-	if(val != SP_FIAR_GAME_EMPTY_ENTRY)
+
+	val = spFiarCheckPattern(src,SP_FIAR_GAME_SPAN-1,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,-1,1);
+	if(val != '\0')
 		return val;
 	
 	for(int i=0; i<SP_FIAR_GAME_N_ROWS;i++)
 		for(int j=0;j<SP_FIAR_GAME_N_COLUMNS;j++)
 			if(src->gameBoard[i][j] == SP_FIAR_GAME_EMPTY_ENTRY)
-				return SP_FIAR_GAME_EMPTY_ENTRY;
+				return '\0';
 	return SP_FIAR_GAME_TIE_SYMBOL;
 }
 
