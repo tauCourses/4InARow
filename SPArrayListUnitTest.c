@@ -97,14 +97,38 @@ static bool spArrayListClearTest() {
 	return true;
 }
 
+static bool spArrayListStackTest() {
+	SPArrayList* list = spArrayListCreate(CAPACITY_SIZE);
+	ASSERT_TRUE(list!=NULL);
+	for (int i = 0; i < CAPACITY_SIZE*2; i++) {
+		ASSERT_TRUE(spArrayListPush(list, 0) == SP_ARRAY_LIST_SUCCESS);
+	}
+	ASSERT_TRUE(spArrayListPop(list) == 0);
+	ASSERT_TRUE(spArrayListPush(list, 1) == SP_ARRAY_LIST_SUCCESS);
+	ASSERT_TRUE(spArrayListPush(list, 1) == SP_ARRAY_LIST_SUCCESS);
+
+	ASSERT_TRUE(spArrayListPop(list) == 1);
+	ASSERT_TRUE(spArrayListPop(list) == 1);
+
+	for (int i = 0; i < CAPACITY_SIZE-2; i++) {
+		ASSERT_TRUE(spArrayListPop(list) == 0);
+	}
+	ASSERT_TRUE(spArrayListIsEmpty(list));
+	spArrayListDestroy(list);
+	
+	ASSERT_TRUE(spArrayListClear(NULL) == SP_ARRAY_LIST_INVALID_ARGUMENT);
+	
+	return true;
+}
+
 int main() {
 	RUN_TEST(spArrayListCreateTest);
 	RUN_TEST(spArrayListCopyTest);
 	RUN_TEST(spArrayListClearTest);
+	RUN_TEST(spArrayListStackTest);
 	
 	RUN_TEST(spArrayListBasicAddTest);
 	RUN_TEST(spArrayListBasicRemoveTest);
 	RUN_TEST(spArrayListBasicGetTest);
-	RUN_TEST(spArrayListCopyTest);
 	return 0;
 }
