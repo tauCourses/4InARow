@@ -26,6 +26,25 @@ static bool spParserCheckParseLine() {
 	ASSERT_TRUE(cmd.cmd == SP_ADD_DISC && cmd.validArg && cmd.arg == 17);
 	cmd = spParserPraseLine("aDd_disc 17");
 	ASSERT_TRUE(cmd.cmd == SP_INVALID_LINE && !cmd.validArg);
+
+	cmd = spParserPraseLine("suggest_move");
+	ASSERT_TRUE(cmd.cmd == SP_SUGGEST_MOVE && !cmd.validArg);
+	cmd = spParserPraseLine("undo_move");
+	ASSERT_TRUE(cmd.cmd == SP_UNDO_MOVE && !cmd.validArg);
+	cmd = spParserPraseLine("quit");
+	ASSERT_TRUE(cmd.cmd == SP_QUIT && !cmd.validArg);
+	cmd = spParserPraseLine("restart");
+	ASSERT_TRUE(cmd.cmd == SP_RESTART && !cmd.validArg);
+
+	cmd = spParserPraseLine("suggest_move	\n");
+	ASSERT_TRUE(cmd.cmd == SP_SUGGEST_MOVE && !cmd.validArg);
+	cmd = spParserPraseLine("	suggest_move \n");
+	ASSERT_TRUE(cmd.cmd == SP_SUGGEST_MOVE && !cmd.validArg);
+	cmd = spParserPraseLine("suggest move");
+	ASSERT_TRUE(cmd.cmd == SP_INVALID_LINE && !cmd.validArg);
+	cmd = spParserPraseLine("restart 17");
+	ASSERT_TRUE(cmd.cmd == SP_INVALID_LINE && !cmd.validArg);
+
 	return true;
 }
 int main() {
