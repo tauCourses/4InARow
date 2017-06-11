@@ -89,7 +89,6 @@ SP_FIAR_GAME_MESSAGE spFiarGameUndoPrevMove(SPFiarGame* src)
 	int col = spArrayListPop(src->history);
 	if(col == -1)
 		return SP_FIAR_GAME_NO_HISTORY;
-	
 	src->gameBoard[src->tops[col]][col] = SP_FIAR_GAME_EMPTY_ENTRY;
 	src->currentPlayer = spFiarGameChangePlayer(src->currentPlayer);
 	src->tops[col]--;
