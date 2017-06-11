@@ -3,9 +3,10 @@
 
 #include <limits.h>
 #include "SPFIARGame.h"
+#include "SPMiniMax.h"
 
-#define SCROING_OPTIONS 7s
-enum evaluationMode {MAX_EVAL, MIN_EVAL};
+#define SCROING_OPTIONS 7
+typedef enum {MAX_EVAL, MIN_EVAL} evaluationMode;
 
 /**
  * return the oposite mode
@@ -18,7 +19,7 @@ evaluationMode opositeEvaluationMode(evaluationMode mode);
  * @param mode - the current mode
  * @return: (mode==MIN_EVAL) => INT_MAX, otherwise - INT_MIN
  */
-int modeLimit(evaluationMode mode);
+int modeWorstValueLimit(evaluationMode mode);
 /**
  * Given a game state, this function return the score of the  best move according to
  * mode. The current game state doesn't change
