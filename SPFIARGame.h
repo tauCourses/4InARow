@@ -76,6 +76,15 @@ SPFiarGame* spFiarGameCreate(int historySize);
  */
 SPFiarGame* spFiarGameCopy(SPFiarGame* src);
 
+/*
+ * return the second player
+ * @param player - char represent the player
+ * @return
+ * SP_FIAR_GAME_PLAYER_2_SYMBOL if player = SP_FIAR_GAME_PLAYER_1_SYMBOL 
+ * SP_FIAR_GAME_PLAYER_1_SYMBOL otherwise
+ */
+char spFiarGameChangePlayer(char player);
+
 /**
  * Frees all memory allocation associated with a given game. If src==NULL
  * the function does nothing.
@@ -173,7 +182,7 @@ char spFiarCheckWinner(SPFiarGame* src);
 * SP_FIAR_GAME_PLAYER_2_SYMBOL - if player 2 fullfill the pattern
 * null character - otherwise
 */
-char spFiarCheckPattern(SPFiarGame* src, int starti, int startj, int endi, int endj, int diri, int dirj, int len);
+char spFiarCheckPattern(SPFiarGame* src, int starti, int startj, int endi, int endj, int diri, int dirj);
 
 /**
 * check the value at in a specific point in gameBoard

@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 
 /**
@@ -278,4 +279,9 @@ bool spArrayListIsFull(SPArrayList* src);
  */
 bool spArrayListIsEmpty(SPArrayList* src);
 
+/**
+ * Print the content of the array list
+ * @param src - the source array list
+*/
+void spArrayListPrint(SPArrayList* src);
 #endif
