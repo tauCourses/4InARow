@@ -47,7 +47,6 @@ SPCommand spParserPraseLine(const char* str)
 {
 	struct command_t result;
 	char *token;
-	char *lineForTokens;
 	char line[MAX_LINE_LENGTH];
 
 	strcpy(line, str);
@@ -56,7 +55,6 @@ SPCommand spParserPraseLine(const char* str)
 	result.cmd = SP_INVALID_LINE;
 
 	token = strtok(line, delimeter);
-	//token = strtok(lineForTokens, " ");
 
 	//if command is 'quit'
 	if (strcmp(token,"quit") == 0)
