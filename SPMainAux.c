@@ -18,7 +18,7 @@ unsigned int getDifficulty()
 	while(1)
 	{
 		printf(MSG_ENTER_DIFF_LEVEL);
-		scanf("%s",input);
+		fgets(input,SP_MAX_LINE_LENGTH,stdin);
 		if (spParserIsInt(input))
 		{
 			int difficulty = atoi(input); 
@@ -158,7 +158,7 @@ void executeAddDisc(SPCommand command,SPFiarGame *game)
 
 void computerTurn(SPFiarGame *game)
 {
-	spFiarGameSetMove(game,1+spMinimaxSuggestMove(game,game->difficulty));//convert from 0-6 columns to 1-7 columns
+	spFiarGameSetMove(game,spMinimaxSuggestMove(game,game->difficulty));//convert from 0-6 columns to 1-7 columns
 	char winner = spFiarCheckWinner(game);
 	if(winner != '\0')
 	{

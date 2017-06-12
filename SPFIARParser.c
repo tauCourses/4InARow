@@ -16,7 +16,7 @@ bool spParserIsInt(const char* str)
 		if ((*str < '0') || (*str > '9'))
 			return false;
 		str++;	
-	}while (*str != '\0');
+	}while (*str != '\0' && *str != '\n');
 		
 	return true;
 }
