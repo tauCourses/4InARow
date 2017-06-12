@@ -8,7 +8,7 @@ SPFiarGame* spFiarGameCreate(int historySize)
 
 	memset(game->gameBoard, SP_FIAR_GAME_EMPTY_ENTRY, sizeof(game->gameBoard));
 	game->currentPlayer = SP_FIAR_GAME_PLAYER_1_SYMBOL;
-
+	game->isOver = false;
 	game->history = spArrayListCreate(historySize);
 	if(game->history == NULL)
 	{

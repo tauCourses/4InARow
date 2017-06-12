@@ -18,7 +18,7 @@ unsigned int getDifficulty()
 	while(1)
 	{
 		printf(MSG_ENTER_DIFF_LEVEL);
-		scanf("%s", input);
+		scanf("%s",input);
 		if (spParserIsInt(input))
 		{
 			int difficulty = atoi(input); 
@@ -36,7 +36,7 @@ unsigned int getDifficulty()
 SPCommand getCommandFromUser()
 {
 	char input[SP_MAX_LINE_LENGTH];
-	scanf("%s", input);
+	fgets(input,SP_MAX_LINE_LENGTH,stdin);
 	return spParserPraseLine(input);
 }
 
@@ -56,6 +56,7 @@ SPCommand getCommand(SPFiarGame *game)
 			printf(ERR_INVALID_COMMAND);
 		else
 			return command;
+		
 	}
 }
 
@@ -127,7 +128,7 @@ int doOneUndo(SPFiarGame *game)
 
 void executeAddDisc(SPCommand command,SPFiarGame *game)
 {
-	SP_FIAR_GAME_MESSAGE gameMessage = spFiarGameSetMove(game,command.arg);	
+	SP_FIAR_GAME_MESSAGE gameMessage = spFiarGameSetMove(game,command.arg-1);	
 	if(gameMessage == SP_FIAR_GAME_INVALID_ARGUMENT)
 	{
 		if (command.arg < 1 || command.arg > 7)
@@ -137,9 +138,11 @@ void executeAddDisc(SPCommand command,SPFiarGame *game)
 		return;
 	}
 	else if(gameMessage == SP_FIAR_GAME_INVALID_MOVE)
+	{	
 		printf(ERR_COLUMN_FULL);
 		return;
-	
+	}
+	printf("dss");
 	//After user turn is done
 	char winner = spFiarCheckWinner(game);
 	if(winner != '\0')

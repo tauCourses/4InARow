@@ -6,6 +6,9 @@
 
 bool spParserIsInt(const char* str)
 {
+	if(str == NULL)
+		return false;
+
 	if (*str == '-')
 		str++;
 	do
@@ -20,7 +23,7 @@ bool spParserIsInt(const char* str)
 
 SPCommand spParserPraseLine(const char* str)
 {
-	const char *delimeter = " \t\r\n";
+	const char delimeter[] = " \t\r\n";
 	char line[MAX_LINE_LENGTH], *token;
 
 	SPCommand result;
@@ -38,7 +41,9 @@ SPCommand spParserPraseLine(const char* str)
 			result.cmd = SP_ADD_DISC;
 			result.arg = atoi(token);
 			result.validArg = true;
-		}			
+		}	
+		else		
+			result.cmd = SP_INVALID_LINE;
 	}
 
 	token = strtok(NULL, delimeter);
@@ -50,6 +55,9 @@ SPCommand spParserPraseLine(const char* str)
 
 SP_COMMAND commandFromStr(char* token)
 {
+	if(token == NULL)
+		return SP_INVALID_LINE;
+
 	if(strcmp(token,"quit") == 0)
 		return SP_QUIT;
 	if(strcmp(token,"restart") == 0)
