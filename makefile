@@ -21,7 +21,7 @@ SPArrayListUnitTest: $(ARRAY_LIST_TEST_OBJS)
 SPFIARParserUnitTest: $(PARSER_TEST_OBJS)
 	$(CC) $(PARSER_TEST_OBJS) -o $@
 SPMiniMaxUnitTest: $(MINMAX_TEST_OBJ)
-	$(CC) $(MINMAXNode_TEST_OBJ) -o $@
+	$(CC) $(MINMAX_TEST_OBJ) -o $@
 SPMiniMaxNodeUnitTest: $(MINMAXNode_TEST_OBJ)
 	$(CC) $(MINMAXNode_TEST_OBJ) -o $@
 SPMainAuxUnitTest: $(MAINAUX_TEST_OBJS)

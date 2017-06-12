@@ -17,6 +17,7 @@ int spMinimaxSuggestNode(SPFiarGame* currentGame, unsigned int maxDepth, evaluat
 	if(maxDepth == 0)
 		return scoringFunction(currentGame);
 	
+	
 	char winner = spFiarCheckWinner(currentGame); //check if the game is over
 	if(winner == SP_FIAR_GAME_PLAYER_1_SYMBOL)
 		return INT_MAX;
@@ -32,14 +33,14 @@ int spMinimaxSuggestNode(SPFiarGame* currentGame, unsigned int maxDepth, evaluat
 	{
 		if(!spFiarGameIsValidMove(currentGame,i))
 			values[i] = modeWorstValueLimit(mode);
+			
 		else
-		{
+		{	
 			spFiarGameSetMove(copy,i);
 			values[i] = spMinimaxSuggestNode(copy, maxDepth-1, opositeEvaluationMode(mode));
 			spFiarGameUndoPrevMove(copy);
 		}
 	} 
-	spFiarGameDestroy(copy);
 	
 	return values[limitValueIndex(values,mode)];
 }
@@ -63,24 +64,24 @@ int scoringFunction(SPFiarGame* currentGame)
 {
 	const int scoreVector[] = {-5,-2,-1,0,1,2,5};
 
-	int scroing[SCROING_OPTIONS] = {0};
-	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,0,1,scroing);
-	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS+1-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS,1,0,scroing);
-	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS+1-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,1,1,scroing);
-	scoringFunctionPattern(currentGame,SP_FIAR_GAME_SPAN-1,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,-1,1,scroing);
-
+	int scoring[SCORING_OPTIONS] = {0};
+	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,0,1,scoring);
+	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS+1-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS,1,0,scoring);
+	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS+1-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,1,1,scoring);
+	scoringFunctionPattern(currentGame,SP_FIAR_GAME_SPAN-1,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,-1,1,scoring);
+	
 	int finalScore = 0;
-	for(int i=0; i<SCROING_OPTIONS; i++)
-		finalScore += scoreVector[i]*scroing[i];
-
+	for(int i=0; i<SCORING_OPTIONS; i++)
+		finalScore += scoreVector[i]*scoring[i];
+	
 	return finalScore;
 }
 
-void scoringFunctionPattern(SPFiarGame* currentGame, int starti, int startj, int endi, int endj, int diri, int dirj, int scroing[SCROING_OPTIONS])
+void scoringFunctionPattern(SPFiarGame* currentGame, int starti, int startj, int endi, int endj, int diri, int dirj, int scoring[SCORING_OPTIONS])
 {
 	for(int i=starti; i<endi;i++)
 		for(int j=startj;j<endj;j++)
-			scroing[scoringFunctionSpan(currentGame, starti, startj, diri, dirj)]++;
+			scoring[scoringFunctionSpan(currentGame, i, j, diri, dirj)+3]++;
 }
 
 

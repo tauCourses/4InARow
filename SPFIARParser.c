@@ -103,7 +103,7 @@ SPCommand spParserPraseLine(const char* str)
 	}
 
 	//if command is 'add_disc'
-	printf(token);
+	printf("%s\n",token);
 	if (strcmp(token,"add_disc\0") == 0)
 	{
 		token = strtok(NULL, delimeter);
