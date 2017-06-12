@@ -3,9 +3,10 @@
 
 #include <limits.h>
 #include "SPFIARGame.h"
+#include "SPMiniMax.h"
 
-#define SCROING_OPTIONS 7s
-enum evaluationMode {MAX_EVAL, MIN_EVAL};
+#define SCORING_OPTIONS 7
+typedef enum {MAX_EVAL, MIN_EVAL} evaluationMode;
 
 /**
  * return the oposite mode
@@ -18,7 +19,7 @@ evaluationMode opositeEvaluationMode(evaluationMode mode);
  * @param mode - the current mode
  * @return: (mode==MIN_EVAL) => INT_MAX, otherwise - INT_MIN
  */
-int modeLimit(evaluationMode mode);
+int modeWorstValueLimit(evaluationMode mode);
 /**
  * Given a game state, this function return the score of the  best move according to
  * mode. The current game state doesn't change
@@ -42,10 +43,30 @@ int spMinimaxSuggestNode(SPFiarGame* currentGame, unsigned int maxDepth, evaluat
  */
 int limitValueIndex(int values[SP_FIAR_GAME_N_COLUMNS], evaluationMode mode);
 
+/**
+ * calc the score of the current situation
+ * @param currentGame - the current game needed to evaluate
+ * @return - the score according to what we had to implement
+ */
 int scoringFunction(SPFiarGame* currentGame);
 
-void scoringFunctionPattern(SPFiarGame* currentGame, int starti, int startj, int endi, int endj, int diri, int dirj, int scroing[SCROING_OPTIONS]);
+/**
+ * check a specific pattern and update the scroing vector
+ * @param currentGame - the current game
+ * @param starti, startj - the start point of the area to check the pattern
+ * @param endi, endj - the end point of the area to check the pattern
+ * @param diri, dirj - the direction of the pattern
+ * @param scoring[SCORING_OPTIONS] - an array of integers represent the scoring vector
+ */
+void scoringFunctionPattern(SPFiarGame* currentGame, int starti, int startj, int endi, int endj, int diri, int dirj, int scoring[SCORING_OPTIONS]);
 
+/**
+ * check a specific span and return the value of the span
+ * @param currentGame - the current game
+ * @param starti,startj - the start point of the span
+ * @param diri, dirj - the direction of the pattern
+ * @return - the number of SP_FIAR_GAME_PLAYER_1_SYMBOL - the number of SP_FIAR_GAME_PLAYER_2_SYMBOL
+ */
 int scoringFunctionSpan(SPFiarGame* currentGame, int starti, int startj, int diri, int dirj);
 
 #endif
