@@ -184,8 +184,6 @@ bool spArrayListIsEmpty(SPArrayList* src)
 		return false;
 	return src->actualSize == 0;
 }
-<<<<<<< HEAD
-=======
 
 void spArrayListPrint(SPArrayList* src)
 {
@@ -198,4 +196,3 @@ void spArrayListPrint(SPArrayList* src)
 		printf("%d ",src->elements[i]);
 	printf("\n");
 }
->>>>>>> 101beca594cc0da21f27aecae8ceec6c75d901e3

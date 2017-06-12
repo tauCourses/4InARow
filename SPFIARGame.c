@@ -182,3 +182,11 @@ char spFiarCheckLocation(SPFiarGame *src, int i, int j)
 		return SP_FIAR_GAME_OUT_OF_TABLE;
 	return src->gameBoard[i][j];
 }
+
+int spFiarUpdateDifficulty(SPFiarGame *src, unsigned int difficulty)
+{
+	if (src == NULL)
+		return -1;
+	src->difficulty = difficulty;
+	return 1;
+}

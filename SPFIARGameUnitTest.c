@@ -477,12 +477,12 @@ static bool spFIARGameWinnerTest() {
 	return true;
 }
 
-int main() {
-	RUN_TEST(spFIARGameBasicTest);
-	RUN_TEST(spFiarGameSetMoveTest);
-	RUN_TEST(spFiarGameUndoMoveTest);
-	RUN_TEST(spFiarGameUndoMoveTest2);
-	RUN_TEST(spFiarGameValidMoveTest);
-	RUN_TEST(spFIARGameWinnerTest);
-	return 0;
-}
+//int main() {
+//	RUN_TEST(spFIARGameBasicTest);
+//	RUN_TEST(spFiarGameSetMoveTest);
+//	RUN_TEST(spFiarGameUndoMoveTest);
+//	RUN_TEST(spFiarGameUndoMoveTest2);
+//	RUN_TEST(spFiarGameValidMoveTest);
+//	RUN_TEST(spFIARGameWinnerTest);
+//	return 0;
+//}

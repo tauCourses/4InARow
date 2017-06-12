@@ -37,6 +37,7 @@ typedef struct sp_fiar_game_t {
 	int tops[SP_FIAR_GAME_N_COLUMNS];
 	char currentPlayer;
 	SPArrayList *history;
+	unsigned int difficulty;
 } SPFiarGame;
 
 /**
@@ -193,4 +194,9 @@ char spFiarCheckPattern(SPFiarGame* src, int starti, int startj, int endi, int e
 * src->gameBoard[i][j] - otherwise
 */
 char spFiarCheckLocation(SPFiarGame *src, int i, int j);
+
+
+//fill in here desc!!!
+int spFiarUpdateDifficulty(SPFiarGame *src, unsigned int difficulty);
+
 #endif

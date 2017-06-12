@@ -45,7 +45,8 @@ bool spParserIsInt(const char* str)
 
 SPCommand spParserPraseLine(const char* str)
 {
-	struct command_t result;
+	SPCommand result;
+	result = malloc(sizeOf(SPCommand));
 	char *token;
 	char line[MAX_LINE_LENGTH];
 

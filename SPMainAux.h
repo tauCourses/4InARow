@@ -5,6 +5,7 @@
 
 #include "SPFIARParser.h"
 #include "SPFIARGame.h"
+#include "SPArrayList.h"
 
 #define HISTORY_SIZE 20
 
@@ -31,7 +32,7 @@
 
 
 
-
+//need to fix!
 /**
  * gets the difficulty level from the user.
  * while the input is not an integer between 1 to 7 prints an error and wait for another input.
@@ -39,7 +40,7 @@
  * -1 if there is fail in scanf().
  * Otherwise, a legal difficulty number is returned.
  */
-int getDifficulty();
+unsigned int getDifficulty();
 
 /**
  * prints the correct winner message according to the game situation.
@@ -53,7 +54,7 @@ void printWinner(SPFiarGame game);
  * @return
  * an SPcommand according to the user input.
  */
-SPCommand getCommand();
+SPCommand getCommand(SPFiarGame game);
 
 
 /*
@@ -61,6 +62,18 @@ SPCommand getCommand();
 fill in here!
 
 */
-int executeCommand(SPCommand command,SPFiarGame game,int difficulty);
+int executeCommand(SPCommand command,SPFiarGame game);
+
+void executeUndo(SPFiarGame game);
+
+int doOneUndo(SPFiarGame game);
+
+void executeAddDisc(SPCommand command,SPFiarGame game,int difficulty);
+
+SPFiarGame* initalize();
+
+void computerTurn(SPFiarGame game);
+
+SPCommand getGameOverCommand();
 
 #endif

@@ -9,5 +9,7 @@
 #define MAIN_H_
 
 #include "SPMainAux.h"
+#include "SPFIARGame.h"
+#include "SPFIARParser.h"
 
 #endif /* MAIN_H_ */
