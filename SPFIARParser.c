@@ -20,16 +20,10 @@ bool spParserIsInt(const char* str)
 
 SPCommand spParserPraseLine(const char* str)
 {
-	SPCommand result;
-	char *token;
-	char line[MAX_LINE_LENGTH];
-
-	strcpy(line, str);
-
 	const char *delimeter = " \t\r\n";
 	char line[MAX_LINE_LENGTH], *token;
 
-	struct command_t result;
+	SPCommand result;
 	result.validArg = false;
 
 	strcpy(line, str);	

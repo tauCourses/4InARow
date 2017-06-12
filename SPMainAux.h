@@ -6,6 +6,8 @@
 #include "SPFIARParser.h"
 #include "SPFIARGame.h"
 #include "SPArrayList.h"
+#include "main.h"
+#include "SPMiniMax.h"
 
 #define HISTORY_SIZE 20
 
@@ -20,11 +22,12 @@
 
 #define MSG_ENTER_DIFF_LEVEL "Please enter the difficulty level between [1-7]:\n"
 #define MSG_NEXT_MOVE "Please make the next move:\n"
-#define MSG_YOU_WIN "Game over: you win\nPlease enter ‘quit’ to exit or ‘restart’ to start a new game!\n"
-#define MSG_COM_WIN "Game over: computer wins\nPlease enter ‘quit’ to exit or ‘restart’ to start a new game!\n"
+#define MSG_YOU_WIN "Game over: you win\n"
+#define MSG_COM_WIN "Game over: computer wins\n"
+#define MSG_AFTER_GAME_OVER "Please enter ‘quit’ to exit or ‘restart’ to start a new game!\n"
 #define MSG_TIE "Game over: it’s a tie\nPlease enter ‘quit’ to exit or ‘restart’ to start a new game!\n"
-#define MSG_SUGGEST_MOVE "Suggested move: drop a disc to column $d\n"
-#define MSG_REMOVE_COM_DISC "Remove disc: remove computer’s disc at column $d\n"
+#define MSG_SUGGEST_MOVE "Suggested move: drop a disc to column %d\n"
+#define MSG_REMOVE_COM_DISC "Remove disc: remove computer’s disc at column %d\n"
 #define MSG_REMOVE_USER_DISC "Remove disc: remove user’s disc at column %d\n"
 #define MSG_COM_MOVE "Computer move: add disc to column %d\n"
 #define MSG_EXIT "Exiting...\n"
@@ -42,38 +45,46 @@
  */
 unsigned int getDifficulty();
 
+
+
 /**
- * prints the correct winner message according to the game situation.
- * assumes the game has a winner.
- * @game - the game for which the winner message is printed
+ * return a command from user input
  */
-void printWinner(SPFiarGame game);
+SPCommand getCommandFromUser();
 
 /**
  * gets the current command from the user.
  * @return
  * an SPcommand according to the user input.
  */
-SPCommand getCommand(SPFiarGame game);
+SPCommand getCommand(SPFiarGame *game);
 
+/**
+ */
+bool isGameOverCommand(SPCommand command);
 
 /*
 
 fill in here!
 
 */
-int executeCommand(SPCommand command,SPFiarGame game);
+void executeCommand(SPCommand command,SPFiarGame *game);
 
-void executeUndo(SPFiarGame game);
+void executeUndo(SPFiarGame *game);
 
-int doOneUndo(SPFiarGame game);
+int doOneUndo(SPFiarGame *game);
 
-void executeAddDisc(SPCommand command,SPFiarGame game,int difficulty);
+void executeAddDisc(SPCommand command,SPFiarGame *game);
 
 SPFiarGame* initalize();
 
-void computerTurn(SPFiarGame game);
+void computerTurn(SPFiarGame *game);
 
-SPCommand getGameOverCommand();
+/**
+ * prints the correct winner message according to the game situation.
+ * assumes the game has a winner.
+ * @game - the game for which the winner message is printed
+ */
+void printWinner(char winner);
 
 #endif
