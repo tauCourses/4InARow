@@ -9,8 +9,10 @@ int spMinimaxSuggestMove(SPFiarGame* currentGame, unsigned int maxDepth)
 
 	int values[SP_FIAR_GAME_N_COLUMNS];
 	SPFiarGame *copy = spFiarGameCopy(currentGame);
+	//decide the mode, if it's the first player it need to be MAX_EVAL, else MIN_EVAL
+	//the reason for it is that the scoring function return positive score when the first plyaer in adventage
 	evaluationMode mode = (copy->currentPlayer == SP_FIAR_GAME_PLAYER_1_SYMBOL) ? MAX_EVAL : MIN_EVAL;
-	printf("\nmode - %d\n\n", mode);
+	
 	for(int i=0; i< SP_FIAR_GAME_N_COLUMNS; i++)
 	{
 		if(!spFiarGameIsValidMove(currentGame,i))
@@ -19,7 +21,6 @@ int spMinimaxSuggestMove(SPFiarGame* currentGame, unsigned int maxDepth)
 		{
 			spFiarGameSetMove(copy,i);
 			values[i] = spMinimaxSuggestNode(copy, maxDepth-1, opositeEvaluationMode(mode));
-			printf("%d - %d\n", i, values[i]);
 			spFiarGameUndoPrevMove(copy);
 		}
 	} 

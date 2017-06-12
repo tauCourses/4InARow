@@ -47,4 +47,13 @@ bool spParserIsInt(const char* str);
  */
 SPCommand spParserPraseLine(const char* str);
 
+/**
+ * check if a token is a known command and return the right command
+ * @param token - the token to parse
+ * @return:
+ * if it's a known command - return the command
+ * SP_INVALID_LINE otherwise
+ */
+SP_COMMAND commandFromStr(char* token);
+
 #endif
