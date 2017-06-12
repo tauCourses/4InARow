@@ -58,6 +58,32 @@ static bool scoringFunctionTest()
 	return true;
 }
 
+static bool scoringFunctionTest2()
+{
+	SPFiarGame* res = spFiarGameCreate(HISTORY_SIZE);
+	
+	spFiarGameSetMove(res,1);
+	spFiarGameSetMove(res,5);
+	spFiarGameSetMove(res,1);
+	spFiarGameSetMove(res,1);
+	spFiarGameSetMove(res,1);
+	spFiarGameSetMove(res,6);
+	spFiarGameSetMove(res,1);
+	spFiarGameSetMove(res,3);
+	spFiarGameSetMove(res,4);
+	spFiarGameSetMove(res,3);
+	spFiarGameSetMove(res,2);
+	spFiarGameSetMove(res,2);
+	spFiarGameSetMove(res,3);
+	spFiarGameSetMove(res,2);
+	
+	int val = scoringFunction(res);
+	ASSERT_TRUE(val == -6);
+	spFiarGameDestroy(res);
+	
+	return true;
+}
+
 static bool spMinimaxSuggestNodeTest() {
 	SPFiarGame* res = spFiarGameCreate(HISTORY_SIZE);
 	
@@ -67,14 +93,11 @@ static bool spMinimaxSuggestNodeTest() {
 		spFiarGameSetMove(res,i);	
 	}
 	int val = spMinimaxSuggestNode(res, 5, MAX_EVAL);
-	printf("%d\n",val);
 	ASSERT_TRUE(val == INT_MAX);
 	
 	spFiarGameSetMove(res,6);	
-	spFiarGamePrintBoard(res);
 	val = spMinimaxSuggestNode(res, 5, MIN_EVAL);
-	printf("%d\n",val);
-	ASSERT_TRUE(val == INT_MIN);
+	ASSERT_TRUE(val == -13);
 	
 	spFiarGameDestroy(res);
 	
@@ -86,6 +109,7 @@ int main() {
 	RUN_TEST(modeWorstValueLimitTest);
 	RUN_TEST(limitValueIndexTest);
 	RUN_TEST(scoringFunctionTest);
+	RUN_TEST(scoringFunctionTest2);
 	RUN_TEST(spMinimaxSuggestNodeTest);
 
 	return 0;

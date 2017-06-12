@@ -7,7 +7,7 @@
 
 #define HISTORY_SIZE 20
 
-static bool spMinimaxSuggestMoveTest() {
+/*static bool spMinimaxSuggestMoveTest() {
 	SPFiarGame* res = spFiarGameCreate(HISTORY_SIZE);
 	
 	for(int i=0;i<3;i++)
@@ -28,9 +28,24 @@ static bool spMinimaxSuggestMoveTest() {
 	spFiarGameDestroy(res);
 	
 	return true;
+}*/
+
+static bool spMinimaxSuggestMoveTest2() {
+	SPFiarGame* res = spFiarGameCreate(HISTORY_SIZE);
+	for(int i=0;i<3;i++)
+	{
+		int val = spMinimaxSuggestMove(res, 2);	
+		spFiarGameSetMove(res,val);
+		spFiarGamePrintBoard(res);
+	}
+	
+	spFiarGameDestroy(res);
+	
+	return true;
 }
 
 int main() {
-	RUN_TEST(spMinimaxSuggestMoveTest);
+	//RUN_TEST(spMinimaxSuggestMoveTest);
+	RUN_TEST(spMinimaxSuggestMoveTest2);
 	return 0;
 }

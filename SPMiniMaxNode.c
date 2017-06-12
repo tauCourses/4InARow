@@ -62,10 +62,9 @@ int limitValueIndex(int values[SP_FIAR_GAME_N_COLUMNS], evaluationMode mode)
 
 int scoringFunction(SPFiarGame* currentGame)
 {
-	const int scoreVector[] = {-5,-2,-1,0,1,2,5};
-
-	int scoring[SCORING_OPTIONS] = {0};
-	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,0,1,scoring);
+	const int scoreVector[] = 		{-5,-2,-1, 0, 1, 2, 5};
+	int scoring[SCORING_OPTIONS] = 	{0 , 0, 0, 0, 0, 0, 0};
+	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,0,1,scoring);	
 	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS+1-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS,1,0,scoring);
 	scoringFunctionPattern(currentGame,0,0,SP_FIAR_GAME_N_ROWS+1-SP_FIAR_GAME_SPAN,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,1,1,scoring);
 	scoringFunctionPattern(currentGame,SP_FIAR_GAME_SPAN-1,0,SP_FIAR_GAME_N_ROWS,SP_FIAR_GAME_N_COLUMNS+1-SP_FIAR_GAME_SPAN,-1,1,scoring);
@@ -73,7 +72,7 @@ int scoringFunction(SPFiarGame* currentGame)
 	int finalScore = 0;
 	for(int i=0; i<SCORING_OPTIONS; i++)
 		finalScore += scoreVector[i]*scoring[i];
-	
+
 	return finalScore;
 }
 
@@ -88,7 +87,7 @@ void scoringFunctionPattern(SPFiarGame* currentGame, int starti, int startj, int
 int scoringFunctionSpan(SPFiarGame* currentGame, int starti, int startj, int diri, int dirj)
 {
 	int result = 0;
-	for(int k=0;k<SP_FIAR_GAME_EMPTY_ENTRY;k++)
+	for(int k=0;k<SP_FIAR_GAME_SPAN;k++)
 	{
 		char temp = spFiarCheckLocation(currentGame, starti+diri*k,startj+dirj*k);
 		if(temp == SP_FIAR_GAME_PLAYER_1_SYMBOL)
@@ -96,5 +95,6 @@ int scoringFunctionSpan(SPFiarGame* currentGame, int starti, int startj, int dir
 		else if(temp == SP_FIAR_GAME_PLAYER_2_SYMBOL)
 			result--;
 	}
+
 	return result;
 }
