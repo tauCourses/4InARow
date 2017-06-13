@@ -142,7 +142,6 @@ void executeAddDisc(SPCommand command,SPFiarGame *game)
 		printf(ERR_COLUMN_FULL);
 		return;
 	}
-	printf("dss");
 	//After user turn is done
 	char winner = spFiarCheckWinner(game);
 	if(winner != '\0')
