@@ -18,7 +18,7 @@
 #define ERR_CANNOT_UNDO "Error: cannot undo previous move!\n"
 #define ERR_GAME_OVER "Error: the game is over\n"
 #define ERR_FUNC_FAIL "Error: %s has failed"
-#define ERR_INVALID_LEVEL "Error: invalid level (should be between 1 to 7\n"
+#define ERR_INVALID_LEVEL "Error: invalid level (should be between 1 to 7)\n"
 
 #define MSG_ENTER_DIFF_LEVEL "Please enter the difficulty level between [1-7]:\n"
 #define MSG_NEXT_MOVE "Please make the next move:\n"
@@ -30,6 +30,7 @@
 #define MSG_REMOVE_COM_DISC "Remove disc: remove computer's disc at column %d\n"
 #define MSG_REMOVE_USER_DISC "Remove disc: remove user's disc at column %d\n"
 #define MSG_COM_MOVE "Computer move: add disc to column %d\n"
+#define MSG_RESTARTED "Game restarted!\n"
 #define MSG_EXIT "Exiting...\n"
 
 
@@ -68,7 +69,7 @@ bool isGameOverCommand(SPCommand command);
 fill in here!
 
 */
-void executeCommand(SPCommand command,SPFiarGame *game);
+void executeCommand(SPCommand command,SPFiarGame **game);
 
 void executeUndo(SPFiarGame *game);
 
@@ -86,5 +87,6 @@ void computerTurn(SPFiarGame *game);
  * @game - the game for which the winner message is printed
  */
 void printWinner(char winner);
+
 
 #endif
