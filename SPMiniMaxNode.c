@@ -41,7 +41,7 @@ int spMinimaxSuggestNode(SPFiarGame* currentGame, unsigned int maxDepth, evaluat
 			spFiarGameUndoPrevMove(copy);
 		}
 	} 
-	
+	spFiarGameDestroy(copy);
 	return values[limitValueIndex(values,mode)];
 }
 

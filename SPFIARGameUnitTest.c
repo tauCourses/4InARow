@@ -188,6 +188,7 @@ static bool spFIARGameWinnerTest() {
 	winner = spFiarCheckWinner(res);
 	spFiarGamePrintBoard(res);	
 	ASSERT_TRUE(winner == SP_FIAR_GAME_PLAYER_1_SYMBOL);
+	spFiarGameDestroy(res);
 
 	res = spFiarGameCreate(HISTORY_SIZE);
 	for(int i=0;i<3;i++)

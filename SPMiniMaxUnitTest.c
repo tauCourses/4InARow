@@ -29,7 +29,7 @@ static bool spMinimaxSuggestMoveTest() {
 
 static bool spMinimaxSuggestMoveTest2() {
 	SPFiarGame* res = spFiarGameCreate(HISTORY_SIZE);
-	for(int i=0;i<7;i++)
+	for(int i=0;i<1;i++)
 	{
 		int val = spMinimaxSuggestMove(res, 7);	
 		spFiarGameSetMove(res,val);
