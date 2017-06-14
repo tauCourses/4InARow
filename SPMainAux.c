@@ -7,7 +7,6 @@ SPFiarGame* initalize()
 		return NULL;
 	SPFiarGame* game = spFiarGameCreate(HISTORY_SIZE);
 	spFiarUpdateDifficulty(game,difficulty);
-	
 	spFiarGamePrintBoard(game);
 	return game;
 }
@@ -26,8 +25,11 @@ unsigned int getDifficulty()
 				return difficulty;
 		}
 		else if(spParserPraseLine(input).cmd == SP_QUIT)
+		{
+			printf(MSG_EXIT);
 			break;
-		
+		}
+
 		printf(ERR_INVALID_LEVEL);
 	}
 	return 0;
@@ -53,7 +55,7 @@ SPCommand getCommand(SPFiarGame *game)
 		if(command.cmd == SP_INVALID_LINE)
 			printf(ERR_INVALID_COMMAND);		
 		else if (game->isOver == 1 && !isGameOverCommand(command))	
-			printf(ERR_INVALID_COMMAND);
+			printf(ERR_GAME_OVER);
 		else if(command.cmd == SP_UNDO_MOVE && spArrayListIsEmpty(game->history))
 			printf(ERR_CANNOT_UNDO);
 		else if(command.cmd == SP_ADD_DISC && (command.arg < 1 || command.arg > 7))
@@ -74,9 +76,10 @@ bool isGameOverCommand(SPCommand command)
 	return false;
 }
 
-void executeCommand(SPCommand command,SPFiarGame **pointerToGame)
+void executeCommand(SPCommand *pointerToCommand,SPFiarGame **pointerToGame)
 {
 	SPFiarGame *game = *pointerToGame;
+	SPCommand command = *pointerToCommand;
 	switch(command.cmd)
 	{
 		case SP_UNDO_MOVE:
@@ -84,7 +87,12 @@ void executeCommand(SPCommand command,SPFiarGame **pointerToGame)
 			break;
 		case SP_ADD_DISC:
 			if (!command.validArg)
+			{
 				printf(ERR_FUNC_FAIL,"fgets");
+				spFiarGameDestroy(game);
+				(*pointerToCommand).cmd = SP_QUIT;
+			}
+
 			else
 				executeAddDisc(command, game);
 			break;
@@ -97,11 +105,10 @@ void executeCommand(SPCommand command,SPFiarGame **pointerToGame)
 		case SP_RESTART:
 			spFiarGameDestroy(game);
 			printf(MSG_RESTARTED);
-			*pointerToGame = initalize();
-			if(*pointerToGame == NULL)
+			*pointerToGame = initalize(); // initialize a new game.
+			if(*pointerToGame == NULL)//if in initialzition 'quit' was entered.
 			{
-				command.cmd = SP_QUIT;
-				printf(MSG_EXIT);
+				(*pointerToCommand).cmd = SP_QUIT;
 			}
 			break;
 		default:

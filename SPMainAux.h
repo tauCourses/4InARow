@@ -25,7 +25,7 @@
 #define MSG_YOU_WIN "Game over: you win\n"
 #define MSG_COM_WIN "Game over: computer wins\n"
 #define MSG_TIE "Game over: it's a tie\n"
-#define MSG_AFTER_GAME_OVER "Please enter 'quit' to exit or 'restart' to start a new game!\n"
+#define MSG_AFTER_GAME_OVER "Please enter 'quit' to exit or 'restart_game' to start a new game!\n"
 #define MSG_SUGGEST_MOVE "Suggested move: drop a disc to column %d\n"
 #define MSG_REMOVE_COM_DISC "Remove disc: remove computer's disc at column %d\n"
 #define MSG_REMOVE_USER_DISC "Remove disc: remove user's disc at column %d\n"
@@ -45,14 +45,17 @@ unsigned int getDifficulty();
 
 
 /**
- * return a command from user input
+ * gets the input from user and return it after parsing.
+ * @return
+ * a SPCommand from user input
  */
 SPCommand getCommandFromUser();
 
 /**
- * gets the current command from the user.
+ * gets the current command from the user and handles bad commands,
+ * and makes sure only valid command returns.
  * @return
- * an SPcommand according to the user input.
+ * an executable SPcommand according to the user input.
  */
 SPCommand getCommand(SPFiarGame *game);
 
@@ -65,21 +68,46 @@ SPCommand getCommand(SPFiarGame *game);
  */
 bool isGameOverCommand(SPCommand command);
 
-/*
+/**
+ * execute the command given to the given game.
+ * @param command - the command to process.
+ * 		  game - the current game that get the command.
+ */
+void executeCommand(SPCommand *pointerToCommand,SPFiarGame **pointerToGame);
 
-fill in here!
-
-*/
-void executeCommand(SPCommand command,SPFiarGame **game);
-
+/**
+ * execute the command undo_move.
+ * @param game - the current game that need to undo move in.
+ */
 void executeUndo(SPFiarGame *game);
 
+/**
+ * execute one undo_move - either the user's or the computer's.
+ * complementary of the executeUndo fucntion.
+ * @param game - the current game that need to undo one move in.
+ */
 int doOneUndo(SPFiarGame *game);
 
+/**
+ * execute the command add_disc given to the given game.
+ * @param command - the command add_disc with it's argument to process.
+ * 		  game - the current game that get the command.
+ */
 void executeAddDisc(SPCommand command,SPFiarGame *game);
 
+
+/**
+ * Initalize a new game - get's the diffculty input from user, and creates a new game and print the new game board.
+ * @return
+ * the new game
+ * NULL if there was a memory failure or 'quit' was entered by user in difficulty input.
+ */
 SPFiarGame* initalize();
 
+/**
+ * makes the computer next turn after the user (if user has not won) according to minmax with given difficulty.
+ * @param game - the current game that the play is done upon.
+ */
 void computerTurn(SPFiarGame *game);
 
 /**
