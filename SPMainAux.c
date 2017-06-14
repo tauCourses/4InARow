@@ -97,13 +97,13 @@ void executeCommand(SPCommand command,SPFiarGame *game)
 
 void executeUndo(SPFiarGame *game)
 {
-	int toRemove = spArrayListGetFirst(game->history);
+	int toRemove = spArrayListGetFirst(game->history)+1; //zero base to 1 base array
 	if (doOneUndo(game) == -1)
 		return;
 	else
 		printf(MSG_REMOVE_COM_DISC,toRemove);
 
-	toRemove = spArrayListGetFirst(game->history);
+	toRemove = spArrayListGetFirst(game->history)+1; 
 	if (doOneUndo(game) == -1)
 		return;
 	else
@@ -148,10 +148,10 @@ void executeAddDisc(SPCommand command,SPFiarGame *game)
 	{
 		printWinner(winner);
 		game->isOver = true;
-		return;
 	}
-
-	computerTurn(game);
+	else
+		computerTurn(game);
+	spFiarGamePrintBoard(game);
 }
 
 
@@ -165,7 +165,6 @@ void computerTurn(SPFiarGame *game)
 		game->isOver = true;
 		return;
 	}
-	spFiarGamePrintBoard(game);
 }
 
 

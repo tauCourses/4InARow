@@ -14,11 +14,11 @@
 //All messages to print are predefined here
 #define ERR_INVALID_COMMAND "Error: invalid command\n"
 #define ERR_COLUMN_OUT_OF_RANGE "Error: column number must be in range 1-7\n"
-#define ERR_COLUMN_FULL "Error: column X is full\n"
+#define ERR_COLUMN_FULL "Error: column X is full\n" //TODO = column X ?!?!
 #define ERR_CANNOT_UNDO "Error: cannot undo previous move!\n"
 #define ERR_GAME_OVER "Error: the game is over\n"
 #define ERR_FUNC_FAIL "Error: %s has failed"
-#define ERR_INVALID_LEVEL "Error: invalid level (should be between 1 to 7\n"
+#define ERR_INVALID_LEVEL "Error: invalid level (should be between 1 to 7)\n"
 
 #define MSG_ENTER_DIFF_LEVEL "Please enter the difficulty level between [1-7]:\n"
 #define MSG_NEXT_MOVE "Please make the next move:\n"
@@ -32,15 +32,11 @@
 #define MSG_COM_MOVE "Computer move: add disc to column %d\n"
 #define MSG_EXIT "Exiting...\n"
 
-
-
-
-//need to fix!
 /**
  * gets the difficulty level from the user.
  * while the input is not an integer between 1 to 7 prints an error and wait for another input.
  * @return
- * -1 if there is fail in scanf().
+ * 0 if quit command found.
  * Otherwise, a legal difficulty number is returned.
  */
 unsigned int getDifficulty();
@@ -60,6 +56,11 @@ SPCommand getCommandFromUser();
 SPCommand getCommand(SPFiarGame *game);
 
 /**
+ * check if the command type is legal after game is over
+ * @param command - the command to process
+ * @return
+ * true if command.cmd is restart or quit
+ * false otherwise
  */
 bool isGameOverCommand(SPCommand command);
 
