@@ -14,7 +14,7 @@
 //All messages to print are predefined here
 #define ERR_INVALID_COMMAND "Error: invalid command\n"
 #define ERR_COLUMN_OUT_OF_RANGE "Error: column number must be in range 1-7\n"
-#define ERR_COLUMN_FULL "Error: column X is full\n" //TODO = column X ?!?!
+#define ERR_COLUMN_FULL "Error: column %d is full\n" 
 #define ERR_CANNOT_UNDO "Error: cannot undo previous move!\n"
 #define ERR_GAME_OVER "Error: the game is over\n"
 #define ERR_FUNC_FAIL "Error: %s has failed"

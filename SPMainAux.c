@@ -54,9 +54,16 @@ SPCommand getCommand(SPFiarGame *game)
 			printf(ERR_INVALID_COMMAND);		
 		else if (game->isOver == 1 && !isGameOverCommand(command))	
 			printf(ERR_INVALID_COMMAND);
+		else if(command.cmd == SP_UNDO_MOVE && spArrayListIsEmpty(game->history))
+			printf(ERR_CANNOT_UNDO);
+		else if(command.cmd == SP_ADD_DISC && (command.arg < 1 || command.arg > 7))
+			printf(ERR_COLUMN_OUT_OF_RANGE);
+		else if(command.cmd == SP_ADD_DISC && !spFiarGameIsValidMove(game, command.arg-1))
+			printf(ERR_COLUMN_FULL,command.arg);
+		else if(command.cmd == SP_SUGGEST_MOVE)
+			printf(MSG_SUGGEST_MOVE,spMinimaxSuggestMove(game,game->difficulty)+1); //from zero base index to 1 base index
 		else
-			return command;
-		
+			return command;		
 	}
 }
 
@@ -91,7 +98,7 @@ void executeCommand(SPCommand command,SPFiarGame **pointerToGame)
 			spFiarGameDestroy(game);
 			printf(MSG_RESTARTED);
 			*pointerToGame = initalize();
-			if(game == NULL)
+			if(*pointerToGame == NULL)
 			{
 				command.cmd = SP_QUIT;
 				printf(MSG_EXIT);
@@ -115,6 +122,8 @@ void executeUndo(SPFiarGame *game)
 		return;
 	else
 		printf(MSG_REMOVE_USER_DISC,toRemove);
+
+	spFiarGamePrintBoard(game);	
 }
 
 int doOneUndo(SPFiarGame *game)
@@ -146,7 +155,7 @@ void executeAddDisc(SPCommand command,SPFiarGame *game)
 	}
 	else if(gameMessage == SP_FIAR_GAME_INVALID_MOVE)
 	{	
-		printf(ERR_COLUMN_FULL);
+		printf(ERR_COLUMN_FULL, command.arg);
 		return;
 	}
 	//After user turn is done

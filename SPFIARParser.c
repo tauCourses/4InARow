@@ -60,7 +60,7 @@ SP_COMMAND commandFromStr(char* token)
 
 	if(strcmp(token,"quit") == 0)
 		return SP_QUIT;
-	if(strcmp(token,"restart") == 0)
+	if(strcmp(token,"restart_game") == 0)
 		return SP_RESTART;
 	if(strcmp(token,"suggest_move") == 0)
 		return SP_SUGGEST_MOVE;
