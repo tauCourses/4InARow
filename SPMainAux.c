@@ -67,8 +67,9 @@ bool isGameOverCommand(SPCommand command)
 	return false;
 }
 
-void executeCommand(SPCommand command,SPFiarGame *game)
+void executeCommand(SPCommand command,SPFiarGame **pointerToGame)
 {
+	SPFiarGame *game = *pointerToGame;
 	switch(command.cmd)
 	{
 		case SP_UNDO_MOVE:
@@ -76,7 +77,7 @@ void executeCommand(SPCommand command,SPFiarGame *game)
 			break;
 		case SP_ADD_DISC:
 			if (!command.validArg)
-				printf(ERR_FUNC_FAIL,"main");
+				printf(ERR_FUNC_FAIL,"fgets");
 			else
 				executeAddDisc(command, game);
 			break;
@@ -88,7 +89,13 @@ void executeCommand(SPCommand command,SPFiarGame *game)
 			break;
 		case SP_RESTART:
 			spFiarGameDestroy(game);
-			game = initalize();
+			printf(MSG_RESTARTED);
+			*pointerToGame = initalize();
+			if(game == NULL)
+			{
+				command.cmd = SP_QUIT;
+				printf(MSG_EXIT);
+			}
 			break;
 		default:
 			break;
@@ -115,7 +122,7 @@ int doOneUndo(SPFiarGame *game)
 	SP_FIAR_GAME_MESSAGE gameMessage = spFiarGameUndoPrevMove(game);
 	if(gameMessage == SP_FIAR_GAME_INVALID_ARGUMENT)//undo computer move
 	{
-		printf(ERR_FUNC_FAIL,"main");
+		printf(ERR_FUNC_FAIL,"malloc");
 		return -1;
 	}
 	else if (gameMessage == SP_FIAR_GAME_NO_HISTORY)
@@ -134,7 +141,7 @@ void executeAddDisc(SPCommand command,SPFiarGame *game)
 		if (command.arg < 1 || command.arg > 7)
 			printf(ERR_COLUMN_OUT_OF_RANGE);
 		else //if game == null
-			printf(ERR_FUNC_FAIL,"main");
+			printf(ERR_FUNC_FAIL,"malloc");
 		return;
 	}
 	else if(gameMessage == SP_FIAR_GAME_INVALID_MOVE)
@@ -157,7 +164,9 @@ void executeAddDisc(SPCommand command,SPFiarGame *game)
 
 void computerTurn(SPFiarGame *game)
 {
-	spFiarGameSetMove(game,spMinimaxSuggestMove(game,game->difficulty));//convert from 0-6 columns to 1-7 columns
+	int nextMove = spMinimaxSuggestMove(game,game->difficulty);
+	printf(MSG_COM_MOVE,nextMove+1);
+	spFiarGameSetMove(game,nextMove);
 	char winner = spFiarCheckWinner(game);
 	if(winner != '\0')
 	{
@@ -178,3 +187,4 @@ void printWinner(char winner)
 	else
 		printf(MSG_TIE);
 }
+

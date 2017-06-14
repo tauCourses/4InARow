@@ -30,6 +30,7 @@
 #define MSG_REMOVE_COM_DISC "Remove disc: remove computer's disc at column %d\n"
 #define MSG_REMOVE_USER_DISC "Remove disc: remove user's disc at column %d\n"
 #define MSG_COM_MOVE "Computer move: add disc to column %d\n"
+#define MSG_RESTARTED "Game restarted!\n"
 #define MSG_EXIT "Exiting...\n"
 
 /**
@@ -69,7 +70,7 @@ bool isGameOverCommand(SPCommand command);
 fill in here!
 
 */
-void executeCommand(SPCommand command,SPFiarGame *game);
+void executeCommand(SPCommand command,SPFiarGame **game);
 
 void executeUndo(SPFiarGame *game);
 
@@ -87,5 +88,6 @@ void computerTurn(SPFiarGame *game);
  * @game - the game for which the winner message is printed
  */
 void printWinner(char winner);
+
 
 #endif
