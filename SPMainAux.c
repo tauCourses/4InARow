@@ -76,25 +76,23 @@ bool isGameOverCommand(SPCommand command)
 	return false;
 }
 
-void executeCommand(SPCommand *pointerToCommand,SPFiarGame **pointerToGame)
+void executeCommand(SPCommand *command,SPFiarGame **pointerToGame)
 {
 	SPFiarGame *game = *pointerToGame;
-	SPCommand command = *pointerToCommand;
-	switch(command.cmd)
+	switch(command->cmd)
 	{
 		case SP_UNDO_MOVE:
 			executeUndo(game);
 			break;
 		case SP_ADD_DISC:
-			if (!command.validArg)
+			if (!command->validArg)
 			{
 				printf(ERR_FUNC_FAIL,"fgets");
 				spFiarGameDestroy(game);
-				(*pointerToCommand).cmd = SP_QUIT;
+				command->cmd = SP_QUIT;
 			}
-
 			else
-				executeAddDisc(command, game);
+				executeAddDisc(*command, game);
 			break;
 		case SP_SUGGEST_MOVE:
 			printf(MSG_SUGGEST_MOVE,spMinimaxSuggestMove(game,game->difficulty)+1); //from zero base index to 1 base index
@@ -107,9 +105,8 @@ void executeCommand(SPCommand *pointerToCommand,SPFiarGame **pointerToGame)
 			printf(MSG_RESTARTED);
 			*pointerToGame = initalize(); // initialize a new game.
 			if(*pointerToGame == NULL)//if in initialzition 'quit' was entered.
-			{
-				(*pointerToCommand).cmd = SP_QUIT;
-			}
+				command->cmd = SP_QUIT;
+
 			break;
 		default:
 			break;

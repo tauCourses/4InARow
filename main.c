@@ -6,6 +6,7 @@ int main()
 	SPFiarGame *game = initalize();
 	if(game == NULL)
 		return -1;
+	
 
 	do{
 		command = getCommand(game);

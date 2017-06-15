@@ -13,19 +13,18 @@ int modeWorstValueLimit(evaluationMode mode)
 }
 
 int spMinimaxSuggestNode(SPFiarGame* currentGame, unsigned int maxDepth, evaluationMode mode)
-{
-	if(maxDepth == 0)
-		return scoringFunction(currentGame);
-	
-	
+{	
 	char winner = spFiarCheckWinner(currentGame); //check if the game is over
 	if(winner == SP_FIAR_GAME_PLAYER_1_SYMBOL)
-		return INT_MAX;
+		return INT_MAX - 100; //need to be still better than a full column
 	else if(winner == SP_FIAR_GAME_PLAYER_2_SYMBOL)
-		return INT_MIN;
+		return INT_MIN + 100; //need to be still better than a full column
 	else if(winner == SP_FIAR_GAME_TIE_SYMBOL)
 		return 0;
 
+	if(maxDepth == 0)
+		return scoringFunction(currentGame);
+	
 	SPFiarGame *copy = spFiarGameCopy(currentGame);
 	int values[SP_FIAR_GAME_N_COLUMNS];
 	
