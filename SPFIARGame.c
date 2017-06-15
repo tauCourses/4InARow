@@ -4,7 +4,7 @@ SPFiarGame* spFiarGameCreate(int historySize)
 {
 	SPFiarGame* game = (SPFiarGame*) calloc(1,sizeof(SPFiarGame));
 	if(game == NULL)
-		NULL; 
+		return NULL;
 
 	memset(game->gameBoard, SP_FIAR_GAME_EMPTY_ENTRY, sizeof(game->gameBoard));
 	game->currentPlayer = SP_FIAR_GAME_PLAYER_1_SYMBOL;

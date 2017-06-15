@@ -3,7 +3,7 @@
 SPFiarGame* initalize()
 {
 	unsigned int difficulty = getDifficulty();
-	if(difficulty == 0)
+	if(difficulty == 0)//'quit' was entered by user or error occurred
 		return NULL;
 	SPFiarGame* game = spFiarGameCreate(HISTORY_SIZE);
 	spFiarUpdateDifficulty(game,difficulty);
@@ -18,6 +18,11 @@ unsigned int getDifficulty()
 	{
 		printf(MSG_ENTER_DIFF_LEVEL);
 		fgets(input,SP_MAX_LINE_LENGTH,stdin);
+		if (input == NULL)//error in fgets
+		{
+			printf(ERR_FUNC_FAIL, "fgets");
+			break;
+		}
 		if (spParserIsInt(input))
 		{
 			int difficulty = atoi(input); 
@@ -39,6 +44,14 @@ SPCommand getCommandFromUser()
 {
 	char input[SP_MAX_LINE_LENGTH];
 	fgets(input,SP_MAX_LINE_LENGTH,stdin);
+	if (input == NULL)//error in fgets
+	{
+		printf(ERR_FUNC_FAIL, "fgets");
+		SPCommand errorCommand;
+		errorCommand.cmd = SP_QUIT;
+		errorCommand.validArg = true; // mark command as an error
+		return errorCommand;
+	}
 	return spParserPraseLine(input);
 }
 
@@ -98,14 +111,23 @@ void executeCommand(SPCommand *command,SPFiarGame **pointerToGame)
 			printf(MSG_SUGGEST_MOVE,spMinimaxSuggestMove(game,game->difficulty)+1); //from zero base index to 1 base index
 			break;
 		case SP_QUIT:
-			printf(MSG_EXIT);
+		{
+			if (command->validArg == false)//if 'quit' command was entered
+				printf(MSG_EXIT);
+			else //fgets had an error
+				printf(ERR_FUNC_FAIL,"fgets");
 			break;
+		}
+
 		case SP_RESTART:
 			spFiarGameDestroy(game);
 			printf(MSG_RESTARTED);
 			*pointerToGame = initalize(); // initialize a new game.
 			if(*pointerToGame == NULL)//if in initialzition 'quit' was entered.
-				command->cmd = SP_QUIT;
+				{
+					command->cmd = SP_QUIT;
+					command->validArg = true;
+				}
 
 			break;
 		default:
