@@ -49,7 +49,7 @@ SPCommand getCommandFromUser()
 		printf(ERR_FUNC_FAIL, "fgets");
 		SPCommand errorCommand;
 		errorCommand.cmd = SP_QUIT;
-		errorCommand.validArg = true; // mark command as an error
+		errorCommand.validArg = true; // marks command as an error
 		return errorCommand;
 	}
 	return spParserPraseLine(input);
@@ -84,7 +84,7 @@ SPCommand getCommand(SPFiarGame *game)
 
 bool isGameOverCommand(SPCommand command)
 {
-	if(command.cmd == SP_QUIT || command.cmd == SP_RESTART)
+	if(command.cmd == SP_QUIT || command.cmd == SP_RESTART || command.cmd == SP_UNDO_MOVE)
 		return true;
 	return false;
 }
