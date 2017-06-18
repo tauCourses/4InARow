@@ -148,7 +148,8 @@ void executeUndo(SPFiarGame *game)
 		return;
 	else
 		printf(MSG_REMOVE_USER_DISC,toRemove);
-
+	if (game->isOver)
+		game->isOver = false;
 	spFiarGamePrintBoard(game);	
 }
 
