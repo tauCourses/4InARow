@@ -187,14 +187,16 @@ void executeAddDisc(SPCommand command,SPFiarGame *game)
 	}
 	//After user turn is done
 	char winner = spFiarCheckWinner(game);
+	if(winner == '\0')
+		computerTurn(game);
+
+	spFiarGamePrintBoard(game);
+	winner = spFiarCheckWinner(game);
 	if(winner != '\0')
 	{
 		printWinner(winner);
 		game->isOver = true;
 	}
-	else
-		computerTurn(game);
-	spFiarGamePrintBoard(game);
 }
 
 
