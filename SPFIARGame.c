@@ -1,10 +1,16 @@
 #include "SPFIARGame.h"
+#include "SPMainAux.h"
 
 SPFiarGame* spFiarGameCreate(int historySize)
 {
-	SPFiarGame* game = (SPFiarGame*) calloc(1,sizeof(SPFiarGame));
+	//SPFiarGame* game = (SPFiarGame*) calloc(1,sizeof(SPFiarGame));
+	SPFiarGame* game = NULL;
 	if(game == NULL)
+	{
+		printf(ERR_FUNC_FAIL, "calloc");
 		return NULL;
+	}
+
 
 	memset(game->gameBoard, SP_FIAR_GAME_EMPTY_ENTRY, sizeof(game->gameBoard));
 	game->currentPlayer = SP_FIAR_GAME_PLAYER_1_SYMBOL;
