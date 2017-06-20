@@ -3,8 +3,7 @@
 
 SPFiarGame* spFiarGameCreate(int historySize)
 {
-	//SPFiarGame* game = (SPFiarGame*) calloc(1,sizeof(SPFiarGame));
-	SPFiarGame* game = NULL;
+	SPFiarGame* game = (SPFiarGame*) calloc(1,sizeof(SPFiarGame));
 	if(game == NULL)
 	{
 		printf(ERR_FUNC_FAIL, "calloc");
