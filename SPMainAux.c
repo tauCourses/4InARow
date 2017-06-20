@@ -205,13 +205,7 @@ void computerTurn(SPFiarGame *game)
 	int nextMove = spMinimaxSuggestMove(game,game->difficulty);
 	printf(MSG_COM_MOVE,nextMove+1);
 	spFiarGameSetMove(game,nextMove);
-	char winner = spFiarCheckWinner(game);
-	if(winner != '\0')
-	{
-		printWinner(winner);
-		game->isOver = true;
-		return;
-	}
+	
 }
 
 
